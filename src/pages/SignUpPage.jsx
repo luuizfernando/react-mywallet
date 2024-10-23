@@ -24,7 +24,7 @@ export default function SignUpPage() {
         alert("Usuário criado com sucesso!");
         navigate("/");
       })
-      .catch(err => console.log(err.response.data));
+      .catch(err => alert(err.response.data));
   }
 
   return (
