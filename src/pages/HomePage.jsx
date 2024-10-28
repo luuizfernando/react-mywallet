@@ -7,12 +7,21 @@ import AuthContext from "../contexts/AuthContext";
 import { useLogout } from "../services/auth";
 import TransactionItem from "../components/TransactionItem";
 import { useGetTransactions } from "../services/transactions";
+import { Navigate } from "react-router-dom";
 
 export default function HomePage() {
   const { userName } = useContext(AuthContext);
+  const navigate = Navigate();
   const logout = useLogout();
   const transactions = useGetTransactions();
   useQuickOut();
+
+  function calcBalance() {
+    const sum = transactions.reduce((acc, cur) => cur.type === "entrada" ? acc + cur.value : acc - cur.value, 0);
+    return sum.toFixed(2);
+  }
+  const balance = transactions && calcBalance();
+
   return (
     <HomeContainer>
       <Header>
@@ -27,17 +36,17 @@ export default function HomePage() {
 
         <article>
           <strong>Saldo</strong>
-          <Value color={"positivo"}>2880,00</Value>
+          <Value color={balance > 0 ? "positivo" : "negativo"}>{balance.toString().replace(".", ",")}</Value>
         </article>
       </TransactionsContainer>
 
 
       <ButtonsContainer>
-        <button>
+        <button onClick={() => navigate("/nova-transacao/entrada")}>
           <AiOutlinePlusCircle />
           <p>Nova <br /> entrada</p>
         </button>
-        <button>
+        <button onClick={() => navigate("/nova-transacao/saida")}>
           <AiOutlineMinusCircle />
           <p>Nova <br />saída</p>
         </button>
