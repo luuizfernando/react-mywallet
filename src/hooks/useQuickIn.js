@@ -7,6 +7,8 @@ export function useQuickIn() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!token && !userName) navigate("/home");
+        if (token && userName) {
+            navigate("/home");
+        }
     }, []);
 }
