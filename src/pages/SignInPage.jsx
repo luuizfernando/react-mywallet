@@ -1,33 +1,18 @@
-import styled from "styled-components"
-import { Link, useNavigate } from "react-router-dom"
-import MyWalletLogo from "../components/MyWalletLogo"
-import { useState } from "react";
-import axios from "axios";
-import { useContext } from "react";
-import AuthContext from "../contexts/AuthContext";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import MyWalletLogo from "../components/MyWalletLogo";
+import { useQuickIn } from "../hooks/useQuickIn";
+import useForm from "../hooks/useForm";
+import { useSignIn } from "../services/auth";
 
 export default function SignInPage() {
-  const [form, setForm] = useState({ email: "", password: "" });
-  const { setToken, setUserName } = useContext(AuthContext);
-
-  const navigate = useNavigate();
-
-  function handleForm(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
+  const { form, handleForm } = useForm({ email: "", password: "" });
+  useQuickIn();
+  const signIn = useSignIn();
 
   function submitForm(e) {
     e.preventDefault();
-
-    axios.post(`${process.env.REACT_APP_API_URL}/sign-in`, form)
-      .then(res => {
-        setToken(res.data.token);
-        setUserName(res.data.userName);
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("userName", res.data.userName);
-        navigate("/home");
-      })
-      .catch((err) => alert(err.response.data));
+    signIn(form);
   }
 
   return (

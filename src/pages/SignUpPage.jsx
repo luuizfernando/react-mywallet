@@ -1,30 +1,20 @@
-import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import styled from "styled-components"
-import MyWalletLogo from "../components/MyWalletLogo"
-import axios from 'axios';
+import MyWalletLogo from "../components/MyWalletLogo";
+import { useQuickIn } from "../hooks/useQuickIn";
+import useForm from "../hooks/useForm";
+import { useSignUp } from "../services/auth";
 
 export default function SignUpPage() {
-  const [form, setForm] = useState({ name: "", email: "", password: "", confirmPassword: "" });
-
-  const navigate = useNavigate();
-
-  function handleForm(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
+  const { form, handleForm } = useForm({ name: "", email: "", password: "", confirmPassword: "" });
+  useQuickIn();
+  const signUp = useSignUp();
 
   function submitForm(e) {
     e.preventDefault();
-
     if (form.password !== form.confirmPassword) return alert("As senhas não coincidem");
-
     delete form.confirmPassword;
-    axios.post(`${process.env.REACT_APP_API_URL}/sign-up`, form)
-      .then(res => {
-        alert("Usuário criado com sucesso!");
-        navigate("/");
-      })
-      .catch(err => alert(err.response.data));
+    signUp(form);
   }
 
   return (

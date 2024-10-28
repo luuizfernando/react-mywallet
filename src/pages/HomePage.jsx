@@ -1,18 +1,14 @@
-import styled from "styled-components"
-import { BiExit } from "react-icons/bi"
-import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai"
-import { useContext } from "react"
-import AuthContext from "../contexts/AuthContext"
-import { useEffect } from "react"
-import { useNavigate } from 'react-router-dom';
+import styled from "styled-components";
+import { BiExit } from "react-icons/bi";
+import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
+import { useQuickOut } from "../hooks/useQuickOut";
+import { useContext } from "react";
+import AuthContext from "../contexts/AuthContext";
 
 export default function HomePage() {
-  const { userName, token } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { userName } = useContext(AuthContext);
 
-  useEffect(() => {
-    if (!token || !userName) navigate("/")
-  }, []);
+  useQuickOut();
 
   return (
     <HomeContainer>
