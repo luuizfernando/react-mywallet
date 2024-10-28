@@ -4,17 +4,17 @@ import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import { useQuickOut } from "../hooks/useQuickOut";
 import { useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
+import { useLogout } from "../services/auth";
 
 export default function HomePage() {
   const { userName } = useContext(AuthContext);
-
+  const logout = useLogout();
   useQuickOut();
-
   return (
     <HomeContainer>
       <Header>
         <h1>Olá, {userName}</h1>
-        <BiExit />
+        <BiExit onClick={logout}/>
       </Header>
 
       <TransactionsContainer>
