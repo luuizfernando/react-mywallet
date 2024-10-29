@@ -5,7 +5,7 @@ import { useQuickOut } from "../hooks/useQuickOut";
 import { useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
 import { useLogout } from "../services/auth";
-import TransactionItem from "../components/TransactionItem";
+import TransactionItem from "../components/TransactionItem/TransactionItem";
 import { useGetTransactions } from "../services/transactions";
 import { Navigate } from "react-router-dom";
 
