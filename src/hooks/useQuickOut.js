@@ -1,14 +1,12 @@
-import { useEffect, useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 
-export function useQuickOut() {
+export default function useQuickOut() {
     const { userName, token } = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!token || !userName) {
-            navigate("/");
-        }
-    }, []);
+        if (!token || !userName) navigate("/");
+    }, [])
 }

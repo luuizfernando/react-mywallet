@@ -1,14 +1,12 @@
-import { useEffect, useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 
-export function useQuickIn() {
+export default function useQuickIn() {
     const { userName, token } = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (token && userName) {
-            navigate("/home");
-        }
-    }, []);
+        if (token && userName) navigate("/home");
+    }, [])
 }
