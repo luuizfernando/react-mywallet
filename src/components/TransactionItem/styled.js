@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { negativeColor, positiveColor, textPrimaryColor, textSecondaryColor } from "../../constants/color"
+import { negativeColor, positiveColor, textPrimaryColor, textSecondaryColor } from "../../constants/colors"
 
 export const ItemContainer = styled.li`
   display: flex;
